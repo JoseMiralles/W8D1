@@ -1,0 +1,23 @@
+<h1>HELLOFOAWEFWEAF</h1>
+
+<form action="<%= subs_url %>" method="POST">
+
+    <input type="hidden" name="sub[moderator_id]" value="<%= current_user.id %>">
+
+    <label>Title:<br>
+        <input name="sub[title]" value="<%= @sub.title %>">
+    </label>
+
+    <br>
+
+    <label>Description:<br>
+        <textarea name="sub[description]">
+            <%= @sub.description %>
+        </textarea>
+    </label>
+
+    <br><br>
+
+    <button type="submit">Sing In</button>
+
+</form>

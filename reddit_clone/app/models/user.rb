@@ -18,7 +18,7 @@ class User < ApplicationRecord
     end
 
     def is_password?(pass)
-        BCrypt::Password.new(self.password_digest).is_password?
+        BCrypt::Password.new(self.password_digest).is_password?(pass)
     end
 
     def ensure_session_token

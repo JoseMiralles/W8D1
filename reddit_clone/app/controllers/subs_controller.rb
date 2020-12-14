@@ -1,6 +1,6 @@
 class SubsController < ApplicationController
 
-    before_action :ensure_sign_in only: [:edit,:update,:new,:create]
+    before_action :ensure_signed_in, only: [:edit,:update,:new,:create]
     
     def new
         @sub = Sub.new
@@ -9,7 +9,6 @@ class SubsController < ApplicationController
 
     def create
         @sub = Sub.new(sub_params)
-
 
         if @sub.save
             redirect_to sub_url(@sub)
@@ -38,12 +37,16 @@ class SubsController < ApplicationController
         @sub = Sub.find(params[:id])
 
         if current_user.id == @sub.moderator_id
-            @sub.update(sub_params)
-            redirect_to sub_url(@sub)
+            if @sub.update(sub_params)
+                redirect_to sub_url(@sub)
+            else
+                flash.now[:errors] = @sub.errors.full_messages
+                render :edit
+            end
         else
-            flash.now[:errors] = @sub.errors.full_messages
-            render :edit
+            flash[:errors] = ["You do not own this sub."]
         end
+        redirect_to sub_url(@sub.id)
     end
 
     private 

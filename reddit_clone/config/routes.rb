@@ -7,6 +7,6 @@ Rails.application.routes.draw do
     resource :posts, only: [:create]
   end
 
-  resource :posts, except: [:create]
+  resources :posts, except: [:create]
 
 end
